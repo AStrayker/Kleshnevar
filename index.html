@@ -3,279 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KLESHNEVAR • Креветки та раки у бульйоні</title>
-    <meta name="description" content="Авторські креветки та раки у бульйонах з вогняними смаками • Доставка Кам'янське">
+    <title>KLESHNEVAR • Раки та креветки у бульйоні</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             --fire: #ff4d00;
-            --dark: #0a0a0a;
+            --orange: #ff8c00;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #0a0a0a url('https://i.imgur.com/dvT9R.jpg') center/cover fixed; /* вогняний фон з рамкою полум'я */
+            background: #0a0a0a url('https://i.imgur.com/ykRTF.jpg') center/cover fixed;
             color: #eee;
-            line-height: 1.6;
+            min-height: 100vh;
             overflow-x: hidden;
         }
         
-        /* Додатковий вогняний ефект зверху */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; height: 180px;
-            background: linear-gradient(to bottom, rgba(255, 77, 0, 0.25), transparent);
-            z-index: -1;
-            pointer-events: none;
-        }
-
         header {
             position: fixed;
             top: 0; left: 0; right: 0;
-            background: rgba(10, 10, 10, 0.92);
+            background: rgba(10,10,10,0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 2px solid var(--fire);
+            border-bottom: 3px solid var(--fire);
         }
         .header-inner {
-            max-width: 1280px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 15px 20px;
+            padding: 15px 25px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
         .logo {
-            font-family: 'Impact', sans-serif;
-            font-size: 2.1rem;
+            font-size: 2.4rem;
             font-weight: 900;
             color: white;
-            text-shadow: 
-                0 0 10px #ff4d00,
-                0 0 20px #ff4d00,
-                2px 2px 0 #000,
-                -2px -2px 0 #000;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo span {
-            color: #ff8c00;
-        }
-
-        .cart-btn {
-            background: transparent;
-            border: 2px solid var(--fire);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .cart-btn:hover {
-            background: var(--fire);
-            transform: scale(1.08);
+            text-shadow: 0 0 25px var(--fire);
+            letter-spacing: 4px;
         }
 
         .hero {
             min-height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('https://i.imgur.com/WR6sF.jpg') center/cover no-repeat;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
             position: relative;
+            padding-top: 80px;
         }
         .hero-content {
             max-width: 900px;
-            margin: 0 auto;
             padding: 0 20px;
-            z-index: 2;
         }
-        .hero h1 {
-            font-size: 4rem;
+        .hero-content h1 {
+            font-size: 5.8rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 80px var(--fire), 5px 5px 0 #000;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+        .hero-content p {
+            font-size: 1.7rem;
+            color: #ffddaa;
+            margin-bottom: 40px;
+        }
+        .phone {
+            font-size: 3.2rem;
+            font-weight: 700;
             color: white;
             text-shadow: 0 0 40px var(--fire);
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: #ddd;
+            margin: 30px 0;
         }
 
         .btn {
-            padding: 18px 45px;
-            font-size: 1.4rem;
+            padding: 18px 55px;
+            font-size: 1.6rem;
             font-weight: 700;
-            border-radius: 50px;
-            background: linear-gradient(45deg, #ff4d00, #ff8c00);
+            background: linear-gradient(45deg, var(--fire), var(--orange));
             color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.5);
-            transition: all 0.3s;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 45px rgba(255,77,0,0.7);
+            transition: all 0.4s;
         }
         .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.7);
+            transform: scale(1.1) translateY(-6px);
         }
 
         section {
-            padding: 90px 20px;
-            max-width: 1280px;
+            padding: 100px 20px;
+            max-width: 1300px;
             margin: 0 auto;
         }
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 60px;
-            color: #ff8c00;
-            text-shadow: 0 0 25px var(--fire);
+            font-size: 3.5rem;
+            color: var(--orange);
+            text-shadow: 0 0 50px var(--fire);
+            margin-bottom: 70px;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
         }
         .product-card {
-            background: rgba(20, 20, 20, 0.95);
-            border-radius: 20px;
+            background: rgba(20,20,20,0.96);
+            border-radius: 24px;
             overflow: hidden;
+            border: 2px solid #444;
             transition: all 0.4s;
-            border: 1px solid #333;
         }
         .product-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(255, 77, 0, 0.35);
+            transform: translateY(-20px);
+            border-color: var(--fire);
+            box-shadow: 0 30px 70px rgba(255,77,0,0.5);
         }
         .product-card img {
             width: 100%;
-            height: 240px;
+            height: 280px;
             object-fit: cover;
         }
         .product-info {
-            padding: 22px;
-        }
-        .product-info h3 {
-            color: white;
-            margin-bottom: 10px;
-            font-size: 1.35rem;
+            padding: 25px;
+            text-align: center;
         }
         .price {
-            font-size: 1.8rem;
+            font-size: 2.1rem;
             font-weight: 700;
             color: var(--fire);
             margin: 15px 0;
         }
         .add-to-cart {
             width: 100%;
+            padding: 16px;
             background: var(--fire);
             color: white;
             border: none;
-            padding: 15px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 1.05rem;
         }
 
-        /* Корзина, форма, toast — ті ж самі, що були раніше */
+        .cart-modal, .order-form {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.93);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #1a1a1a;
+            width: 92%;
+            max-width: 620px;
+            border-radius: 24px;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
 
         .share-btn {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 35px;
+            right: 35px;
+            width: 72px;
+            height: 72px;
             background: var(--fire);
             color: white;
-            width: 65px;
-            height: 65px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 15px 35px rgba(255, 77, 0, 0.6);
+            font-size: 2rem;
+            box-shadow: 0 20px 50px rgba(255,77,0,0.7);
             z-index: 9999;
             cursor: pointer;
         }
 
         footer {
             background: #0a0a0a;
-            padding: 50px 20px;
+            padding: 60px 20px;
             text-align: center;
-            color: #777;
-            border-top: 1px solid #222;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
+            color: #888;
+            border-top: 3px solid #222;
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER з логотипом як на твоїх меню -->
     <header>
         <div class="header-inner">
-            <div class="logo">
-                KLESHNEVAR
-            </div>
-            
-            <button class="cart-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count">0</span>
+            <div class="logo">KLESHNEVAR</div>
+            <button onclick="toggleCart()" class="btn" style="font-size:1.2rem; padding:12px 30px;">
+                <i class="fas fa-shopping-cart"></i> Корзина (<span id="cart-count">0</span>)
             </button>
         </div>
     </header>
 
-    <!-- HERO з вогняним фоном -->
+    <!-- Головний екран у стилі твоєї картинки -->
     <section class="hero">
         <div class="hero-content">
-            <h1>КРЕВЕТКИ ТА РАКИ<br>У БУЛЬЙОНІ</h1>
-            <p>Вогняні авторські смаки • Свіжі морепродукти • Доставка Кам'янське та область</p>
-            <a href="#menu" class="btn">
-                <i class="fas fa-fire"></i> Переглянути меню
-            </a>
+            <h1>KLESHNEVAR</h1>
+            <p>Раки та креветки у бульйоні • Вогняні смаки • Кам'янське</p>
+            <div class="phone">096 044 47 65</div>
+            <button onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})" class="btn">
+                <i class="fas fa-fire"></i> Замовити зараз
+            </button>
         </div>
     </section>
 
-    <!-- Тут продовжується решта сайту (меню, товари, корзина, форма) з попередньої версії -->
-
-    <!-- Для зручності встав сюди весь блок з товарами, корзиною та формою з попереднього коду, який я тобі надсилав. -->
-
+    <!-- Меню -->
     <section id="menu">
-        <h2 class="section-title">МЕНЮ</h2>
-        <div class="products-grid" id="products-grid">
-            <!-- товари рендеряться через JS -->
-        </div>
+        <h2 class="section-title">НАШЕ МЕНЮ</h2>
+        <div class="products-grid" id="products-grid"></div>
     </section>
 
-    <!-- Кнопка поділитися -->
+    <!-- Корзина -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="modal-content">
+            <div style="padding:25px; border-bottom:2px solid #333; display:flex; justify-content:space-between;">
+                <h2>Корзина</h2>
+                <i class="fas fa-times fa-2x" onclick="toggleCart()" style="cursor:pointer;"></i>
+            </div>
+            <div id="cart-items" style="padding:20px;"></div>
+            <div style="padding:20px; font-size:1.7rem; font-weight:700; text-align:right;">
+                Разом: <span id="cart-total">0</span> грн
+            </div>
+            <div style="padding:0 25px 35px;">
+                <button onclick="openOrderForm()" class="btn" style="width:100%;">Оформити замовлення 🔥</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма замовлення -->
+    <div class="order-form" id="order-form">
+        <div class="modal-content">
+            <div style="padding:35px;">
+                <h2 style="text-align:center; color:var(--fire);">Оформлення замовлення</h2>
+                <form onsubmit="sendToTelegram(event)">
+                    <input type="text" id="name" placeholder="Ваше ім'я" required style="width:100%; padding:16px; margin:15px 0; background:#222; border:none; border-radius:14px; color:white; font-size:1.1rem;">
+                    <input type="tel" id="phone" placeholder="Телефон" required style="width:100%; padding:16px; margin:15px 0; background:#222; border:none; border-radius:14px; color:white; font-size:1.1rem;">
+                    <input type="text" id="address" placeholder="Адреса або самовивіз" style="width:100%; padding:16px; margin:15px 0; background:#222; border:none; border-radius:14px; color:white; font-size:1.1rem;">
+                    
+                    <div id="form-total" style="text-align:center; font-size:1.8rem; font-weight:700; margin:30px 0; color:var(--fire);">Сума: 0 грн</div>
+                    
+                    <button type="submit" class="btn" style="width:100%;">Відправити замовлення</button>
+                    <button type="button" onclick="closeOrderForm()" style="width:100%; margin-top:15px; padding:16px; background:transparent; border:2px solid #555; color:#ccc; border-radius:50px; font-size:1.1rem;">Закрити</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка "Поділитися" -->
     <div class="share-btn" onclick="shareSite()">
         <i class="fas fa-share-alt"></i>
     </div>
 
     <footer>
-        <p>KLESHNEVAR © 2026 • Кам'янське • Вогонь у кожній порції 🔥</p>
+        <p>KLESHNEVAR © 2026 • Раки та креветки у бульйоні • Кам'янське</p>
+        <p>Тел: <strong>096 044 47 65</strong></p>
     </footer>
 
     <script>
-        // Встав сюди весь JavaScript з попередньої версії (renderProducts, cart, addToCart, sendToTelegram тощо)
-        // Якщо потрібно — скажи, я надішлю повний файл одним шматком.
+        const products = [
+            {id:1, name:"РАКИ У КЛАСИЧНОМУ БУЛЬЙОНІ", price:1500, desc:"Ароматний бульйон з вершками, часником та спеціями", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:2, name:"РАКИ У ВЕРШКОВОМУ БУЛЬЙОНІ", price:1500, desc:"Ніжний вершковий смак з м'якою текстурою", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:3, name:"РАКИ У ТОМАТНОМУ БУЛЬЙОНІ", price:1500, desc:"Насичений томатний бульйон з легкою кислинкою", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:4, name:"РАКИ У ПИВІ", price:1500, desc:"На основі крафтового пива з пряними нотами", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:5, name:"КРЕВЕТКИ У ТОМ ЯМ", price:850, desc:"Кисло-гострий тайський бульйон", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:6, name:"КРЕВЕТКИ У ВЕРШКОВОМУ БУЛЬЙОНІ", price:800, desc:"Кремовий бульйон з ніжним смаком", img:"https://i.imgur.com/ykRTF.jpg"}
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.desc}</p>
+                        <div class="price">${p.price} грн/кг</div>
+                        <button class="add-to-cart" onclick="addToCart(${p.id})">Додати в корзину 🔥</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function addToCart(id) {
+            const prod = products.find(p => p.id === id);
+            const exist = cart.find(item => item.id === id);
+            if (exist) exist.qty = (exist.qty || 1) + 1;
+            else cart.push({...prod, qty: 1});
+            updateCartCount();
+            showToast(`${prod.name} додано!`);
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((a, b) => a + (b.qty || 1), 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const itemsDiv = document.getElementById('cart-items');
+            itemsDiv.innerHTML = '';
+
+            if (cart.length === 0) {
+                itemsDiv.innerHTML = '<p style="padding:50px; text-align:center; color:#777;">Корзина порожня</p>';
+            } else {
+                cart.forEach((item, i) => {
+                    const div = document.createElement('div');
+                    div.style.cssText = 'display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #333;';
+                    div.innerHTML = `
+                        <div><strong>${item.name}</strong><br><small>${item.qty || 1} кг</small></div>
+                        <div style="text-align:right;">${item.price * (item.qty || 1)} грн 
+                            <span onclick="removeFromCart(${i});event.stopImmediatePropagation()" style="color:#ff4d00;cursor:pointer;margin-left:15px;">×</span>
+                        </div>
+                    `;
+                    itemsDiv.appendChild(div);
+                });
+            }
+
+            const total = cart.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+            document.getElementById('cart-total').textContent = total;
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function removeFromCart(i) {
+            cart.splice(i, 1);
+            toggleCart();
+            updateCartCount();
+        }
+
+        function openOrderForm() {
+            toggleCart();
+            const total = cart.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+            document.getElementById('form-total').textContent = `Сума: ${total} грн`;
+            document.getElementById('order-form').style.display = 'flex';
+        }
+
+        function closeOrderForm() {
+            document.getElementById('order-form').style.display = 'none';
+        }
+
+        async function sendToTelegram(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value || 'Самовивіз';
+
+            let msg = `🔥 Нове замовлення KLESHNEVAR\n\n`;
+            cart.forEach(item => {
+                msg += `• ${item.name} — ${item.qty||1} кг — ${item.price*(item.qty||1)} грн\n`;
+            });
+            msg += `\n👤 ${name}\n📱 ${phone}\n📍 ${address}\n💰 Загалом: ${cart.reduce((s,i)=>s+i.price*(i.qty||1),0)} грн`;
+
+            const BOT_TOKEN = '8435209606:AAF018rPlPPjm2FAbJkxEYYU735GqXXrHRA'; // ← заміни
+            const CHAT_ID = '282198872'; // ← заміни
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({chat_id: CHAT_ID, text: msg})
+                });
+                alert('Замовлення прийнято! Скоро з вами зв’яжемося 🔥');
+                cart = [];
+                updateCartCount();
+                closeOrderForm();
+            } catch (err) {
+                alert('Помилка. Телефонуйте: 096 044 47 65');
+            }
+        }
+
+        function showToast(text) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `position:fixed; bottom:110px; left:50%; transform:translateX(-50%); background:var(--fire); color:white; padding:16px 30px; border-radius:50px; z-index:99999; box-shadow:0 15px 40px rgba(255,77,0,0.6); font-weight:600;`;
+            toast.textContent = text;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2800);
+        }
+
+        function shareSite() {
+            navigator.clipboard.writeText(location.href).then(() => alert('Посилання скопійовано!'));
+        }
+
+        // Запуск
+        window.onload = () => {
+            renderProducts();
+            updateCartCount();
+        };
     </script>
 </body>
 </html>
