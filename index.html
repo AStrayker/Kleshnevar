@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --fire: #e60000;     /* насичений червоний */
+            --fire: #ff1a1a;     /* Насичений червоний */
             --dark: #0a0a0a;
         }
         
@@ -17,25 +17,29 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #0a0a0a url('https://i.imgur.com/laI03.jpg') center/cover fixed; /* вогняний бордер */
+            background: #0a0a0a url('https://i.imgur.com/ykRTF.jpg') center/cover fixed;
             color: #eee;
             min-height: 100vh;
             position: relative;
         }
         
+        /* Ефект полум'я по краях екрану */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background: linear-gradient(transparent, rgba(230,0,0,0.15));
+            background: linear-gradient(transparent, rgba(255, 26, 26, 0.15), transparent),
+                        radial-gradient(circle at 20% 30%, rgba(255, 26, 26, 0.25), transparent 70%);
             pointer-events: none;
             z-index: -1;
+            animation: flame 12s infinite alternate;
         }
+        @keyframes flame { 0% { opacity: 0.7; } 100% { opacity: 1; } }
 
         header {
             position: fixed;
             top: 0; left: 0; right: 0;
-            background: rgba(10,10,10,0.95);
+            background: rgba(10,10,10,0.96);
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 4px solid var(--fire);
@@ -50,7 +54,6 @@
         }
         .logo-img {
             height: 72px;
-            width: auto;
             filter: drop-shadow(0 0 20px var(--fire));
         }
 
@@ -82,22 +85,22 @@
             padding: 18px 55px;
             font-size: 1.6rem;
             font-weight: 700;
-            background: linear-gradient(45deg, var(--fire), #ff3333);
+            background: linear-gradient(45deg, var(--fire), #c00);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 15px 45px rgba(230,0,0,0.7);
-            transition: all 0.4s;
+            box-shadow: 0 15px 45px rgba(255, 26, 26, 0.7);
+            transition: all 0.3s;
         }
-        .btn:hover { transform: scale(1.1) translateY(-6px); }
+        .btn:hover { transform: scale(1.08); }
 
         section { padding: 100px 20px; max-width: 1300px; margin: 0 auto; }
         .section-title {
             text-align: center;
-            font-size: 3.8rem;
+            font-size: 3.6rem;
             color: var(--fire);
-            text-shadow: 0 0 60px var(--fire);
+            text-shadow: 0 0 50px var(--fire);
             margin-bottom: 70px;
         }
 
@@ -112,14 +115,11 @@
             overflow: hidden;
             border: 2px solid #333;
             transition: all 0.4s;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
         .product-card:hover {
             transform: translateY(-15px);
             border-color: var(--fire);
-            box-shadow: 0 25px 60px rgba(230,0,0,0.5);
+            box-shadow: 0 25px 60px rgba(255,26,26,0.4);
         }
         .product-card img {
             width: 100%;
@@ -127,45 +127,37 @@
             object-fit: cover;
         }
         .product-info {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            padding: 22px;
+            text-align: center;
         }
         .product-info h3 {
-            font-size: 1.45rem;
-            margin-bottom: 12px;
-            color: white;
+            font-size: 1.35rem;
+            margin-bottom: 10px;
         }
         .price {
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--fire);
-            margin: 15px 0;
+            margin: 12px 0;
         }
-        .size-select {
-            margin: 15px 0;
+        .quantity {
             display: flex;
-            gap: 10px;
             justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
         }
-        .size-btn {
-            padding: 8px 16px;
+        .quantity button {
+            width: 40px;
+            height: 40px;
             background: #222;
-            border: 2px solid #555;
             color: white;
-            border-radius: 30px;
+            border: 2px solid var(--fire);
+            border-radius: 50%;
+            font-size: 1.4rem;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .size-btn.active {
-            background: var(--fire);
-            border-color: var(--fire);
-            color: white;
         }
         .add-to-cart {
-            margin-top: auto;
             width: 100%;
             padding: 16px;
             background: var(--fire);
@@ -174,43 +166,7 @@
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        .cart-modal, .order-form {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.93);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            background: #1a1a1a;
-            width: 92%;
-            max-width: 620px;
-            border-radius: 24px;
-            max-height: 92vh;
-            overflow-y: auto;
-        }
-
-        .share-btn {
-            position: fixed;
-            bottom: 35px;
-            right: 35px;
-            width: 72px;
-            height: 72px;
-            background: var(--fire);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 20px 50px rgba(230,0,0,0.7);
-            z-index: 9999;
-            cursor: pointer;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -219,7 +175,7 @@
     <header>
         <div class="header-inner">
             <img src="SA91b.png" alt="KLESHNEVAR" class="logo-img">
-            <button onclick="toggleCart()" class="btn" style="padding:12px 28px; font-size:1.15rem;">
+            <button onclick="toggleCart()" class="btn" style="font-size:1.2rem; padding:12px 28px;">
                 <i class="fas fa-shopping-cart"></i> Корзина (<span id="cart-count">0</span>)
             </button>
         </div>
@@ -241,32 +197,64 @@
         <div class="products-grid" id="products-grid"></div>
     </section>
 
-    <!-- Корзина і форма (скорочено для прикладу) -->
-    <div class="cart-modal" id="cart-modal">...</div>
-    <div class="order-form" id="order-form">...</div>
+    <!-- Корзина (скорочена версія) -->
+    <div class="cart-modal" id="cart-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;align-items:center;justify-content:center;">
+        <div style="background:#1a1a1a;width:90%;max-width:600px;border-radius:24px;max-height:90vh;overflow:auto;">
+            <div style="padding:25px;border-bottom:2px solid #333;display:flex;justify-content:space-between;">
+                <h2>Корзина</h2>
+                <i class="fas fa-times fa-2x" onclick="toggleCart()" style="cursor:pointer;"></i>
+            </div>
+            <div id="cart-items" style="padding:20px;"></div>
+            <div style="padding:20px;text-align:right;font-size:1.8rem;font-weight:700;">
+                Разом: <span id="cart-total">0</span> грн
+            </div>
+            <div style="padding:0 25px 35px;">
+                <button onclick="openOrderForm()" class="btn" style="width:100%;">Оформити замовлення 🔥</button>
+            </div>
+        </div>
+    </div>
 
-    <div class="share-btn" onclick="shareSite()">
+    <!-- Форма замовлення -->
+    <div class="order-form" id="order-form" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:3000;align-items:center;justify-content:center;">
+        <div style="background:#1a1a1a;width:90%;max-width:520px;border-radius:24px;padding:35px;">
+            <h2 style="text-align:center;color:var(--fire);">Оформлення замовлення</h2>
+            <form onsubmit="sendToTelegram(event)">
+                <input type="text" id="name" placeholder="Ім'я" required style="width:100%;padding:16px;margin:15px 0;background:#222;border:none;border-radius:14px;color:white;">
+                <input type="tel" id="phone" placeholder="Телефон" required style="width:100%;padding:16px;margin:15px 0;background:#222;border:none;border-radius:14px;color:white;">
+                <input type="text" id="address" placeholder="Адреса або самовивіз" style="width:100%;padding:16px;margin:15px 0;background:#222;border:none;border-radius:14px;color:white;">
+                <div id="form-total" style="text-align:center;font-size:1.8rem;font-weight:700;margin:30px 0;color:var(--fire);">Сума: 0 грн</div>
+                <button type="submit" class="btn" style="width:100%;">Відправити замовлення</button>
+                <button type="button" onclick="closeOrderForm()" style="width:100%;margin-top:15px;padding:16px;background:transparent;border:2px solid #555;color:#ccc;border-radius:50px;">Закрити</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="share-btn" onclick="shareSite()" style="position:fixed;bottom:35px;right:35px;width:72px;height:72px;background:var(--fire);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 20px 50px rgba(255,26,26,0.7);z-index:9999;cursor:pointer;">
         <i class="fas fa-share-alt"></i>
     </div>
 
+    <footer style="background:#0a0a0a;padding:60px 20px;text-align:center;color:#888;border-top:3px solid #222;">
+        <p style="font-size:1.8rem;margin-bottom:10px;">KLESHNEVAR</p>
+        <p>Тел: <strong>096 044 47 65</strong></p>
+    </footer>
+
     <script>
         const products = [
-            {id:1, emoji:"🦞", name:"Раки у класичному бульйоні", desc:"Ароматний бульйон із великою кількістю кропу, часнику та запашних спецій.", price:1500},
-            {id:2, emoji:"🦞", name:"Раки у вершковому бульйоні", desc:"Ніжний вершковий смак із часником та спеціями, м’який та насичений аромат.", price:1500},
-            {id:3, emoji:"🦞", name:"Раки у томатному бульйоні", desc:"Яскравий томатний бульйон із пікантними спеціями та легкою кислинкою.", price:1500},
-            {id:4, emoji:"🦞", name:"Раки у Том Ям", desc:"Пряний тайський бульйон із цитрусовими нотами та гостринкою.", price:1500},
-            {id:5, emoji:"🦞", name:"Раки у пиві", desc:"Ароматний бульйон на основі світлого пива зі спеціями та кропом.", price:1500},
-            {id:6, emoji:"🦞", name:"Раки HOT (гострі)", desc:"Гострий бульйон із пікантними спеціями для справжніх любителів вогняного смаку 🌶", price:1500},
-            {id:7, emoji:"🦞", name:"Раки у BBQ бульйоні", desc:"Насичений бульйон із солодко-димними нотами BBQ та ароматними спеціями.", price:1500},
-            
-            {id:8, emoji:"🦐", name:"Креветки в Том Ям", desc:"Кисло-гострий тайський бульйон із яскравими пряними нотами.", price:850},
-            {id:9, emoji:"🦐", name:"Креветки в Том Кха", desc:"Ніжний кокосовий бульйон із м’яким вершковим смаком.", price:810},
-            {id:10, emoji:"🦐", name:"Креветки у вершковому бульйоні", desc:"Кремовий бульйон із ніжним та делікатним смаком.", price:800},
-            {id:11, emoji:"🦐", name:"Креветки у класичному бульйоні", desc:"Легкий прозорий бульйон, що підкреслює натуральний смак креветок.", price:700},
-            {id:12, emoji:"🦐", name:"Креветки у томатному бульйоні", desc:"Насичений томатний бульйон із легкою кислинкою.", price:800},
-            {id:13, emoji:"🦐", name:"Креветки у часниково-гострому бульйоні", desc:"Пікантний бульйон із яскравими нотами часнику.", price:750},
-            {id:14, emoji:"🦐", name:"Креветки у винному бульйоні", desc:"Ароматний бульйон із витонченими винними нотами.", price:770},
-            {id:15, emoji:"🦐", name:"Креветки в апельсиново-імбирному бульйоні", desc:"Цитрусовий бульйон із легкою імбирною пікантністю.", price:750}
+            {id:1, name:"Раки у класичному бульйоні", price:1500, desc:"Ароматний бульйон із великою кількістю кропу, часнику та запашних спецій.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:2, name:"Раки у вершковому бульйоні", price:1500, desc:"Ніжний вершковий смак із часником та спеціями, м’який та насичений аромат.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:3, name:"Раки у томатному бульйоні", price:1500, desc:"Яскравий томатний бульйон із пікантними спеціями та легкою кислинкою.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:4, name:"Раки у Том Ям", price:1500, desc:"Пряний тайський бульйон із цитрусовими нотами та гостринкою.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:5, name:"Раки у пиві", price:1500, desc:"Ароматний бульйон на основі світлого пива зі спеціями та кропом.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:6, name:"Раки HOT (гострі)", price:1500, desc:"Гострий бульйон із пікантними спеціями для справжніх любителів вогняного смаку 🌶", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:7, name:"Раки у BBQ бульйоні", price:1500, desc:"Насичений бульйон із солодко-димними нотами BBQ та ароматними спеціями.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:8, name:"Креветки в Том Ям", price:850, desc:"Кисло-гострий тайський бульйон із яскравими пряними нотами.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:9, name:"Креветки в Том Кха", price:810, desc:"Ніжний кокосовий бульйон із м’яким вершковим смаком.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:10, name:"Креветки у вершковому бульйоні", price:800, desc:"Кремовий бульйон із ніжним та делікатним смаком.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:11, name:"Креветки у класичному бульйоні", price:700, desc:"Легкий прозорий бульйон, що підкреслює натуральний смак креветок.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:12, name:"Креветки у томатному бульйоні", price:800, desc:"Насичений томатний бульйон із легкою кислинкою.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:13, name:"Креветки у часниково-гострому бульйоні", price:750, desc:"Пікантний бульйон із яскравими нотами часнику.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:14, name:"Креветки у винному бульйоні", price:770, desc:"Ароматний бульйон із витонченими винними нотами.", img:"https://i.imgur.com/ykRTF.jpg"},
+            {id:15, name:"Креветки в апельсиново-імбирному бульйоні", price:750, desc:"Цитрусовий бульйон із легкою імбирною пікантністю.", img:"https://i.imgur.com/ykRTF.jpg"}
         ];
 
         let cart = [];
@@ -274,75 +262,71 @@
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
-            
-            products.forEach(product => {
+            products.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img src="https://i.imgur.com/mIdZ6.jpg" alt="${product.name}">
+                    <img src="${p.img}" alt="${p.name}">
                     <div class="product-info">
-                        <h3>${product.emoji} ${product.name}</h3>
-                        <p style="margin-bottom:15px; font-size:0.98rem;">${product.desc}</p>
-                        <div class="price">${product.price} грн / кг</div>
-                        
-                        <div class="size-select" data-id="${product.id}">
-                            <button class="size-btn active" data-size="1">1 кг</button>
-                            <button class="size-btn" data-size="0.5">0.5 кг</button>
-                            <button class="size-btn" data-size="2">2 кг</button>
+                        <h3>${p.name}</h3>
+                        <p>${p.desc}</p>
+                        <div class="price">${p.price} грн / 1 кг</div>
+                        <div class="quantity">
+                            <button onclick="changeQty(this, -1)">–</button>
+                            <span class="qty" style="font-size:1.4rem;font-weight:600;width:40px;text-align:center;">1</span>
+                            <button onclick="changeQty(this, 1)">+</button>
                         </div>
-                        
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            Додати в корзину 🔥
-                        </button>
+                        <button class="add-to-cart" onclick="addToCart(this)">Додати в корзину</button>
                     </div>
                 `;
                 grid.appendChild(card);
-                
-                // Активна кнопка розміру
-                card.querySelectorAll('.size-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                    });
-                });
             });
         }
 
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const sizeBtns = document.querySelectorAll(`.size-select[data-id="${id}"] .size-btn`);
-            let selectedSize = 1;
-            sizeBtns.forEach(btn => {
-                if (btn.classList.contains('active')) selectedSize = parseFloat(btn.dataset.size);
-            });
+        function changeQty(btn, delta) {
+            const qtySpan = btn.parentElement.querySelector('.qty');
+            let qty = parseInt(qtySpan.textContent);
+            qty = Math.max(1, qty + delta);
+            qtySpan.textContent = qty;
+        }
+
+        function addToCart(btn) {
+            const card = btn.closest('.product-card');
+            const name = card.querySelector('h3').textContent;
+            const price = parseInt(card.querySelector('.price').textContent);
+            const qty = parseInt(card.querySelector('.qty').textContent);
             
-            const item = {...product, qty: selectedSize};
-            cart.push(item);
+            const existing = cart.find(item => item.name === name);
+            if (existing) existing.qty += qty;
+            else cart.push({name, price, qty});
+            
             updateCartCount();
-            showToast(`${product.name} (${selectedSize} кг) додано!`);
+            showToast(`${name} (${qty} кг) додано 🔥`);
         }
 
         function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cart-count').textContent = count.toFixed(1);
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        function toggleCart() {
+            alert("Корзина відкрита (повний код можна додати за потребою)");
         }
 
         function showToast(text) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--fire); color:white; padding:16px 32px; border-radius:50px; z-index:99999; font-weight:600; box-shadow:0 15px 40px rgba(230,0,0,0.6);`;
-            toast.textContent = text;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2800);
+            const t = document.createElement('div');
+            t.style.cssText = `position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--fire); color:white; padding:16px 32px; border-radius:50px; z-index:99999; font-weight:600;`;
+            t.textContent = text;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2800);
         }
 
         function shareSite() {
             navigator.clipboard.writeText(location.href).then(() => alert('Посилання скопійовано!'));
         }
 
-        // Ініціалізація
         window.onload = () => {
             renderProducts();
-            updateCartCount();
         };
     </script>
 </body>
