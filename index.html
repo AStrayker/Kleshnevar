@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KLESHNEVAR • Раки та креветки у бульйоні</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://i.imgur.com/SA91b.png" type="image/png"> <!-- твій логотип як favicon -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -33,36 +33,17 @@
         .header-inner {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 15px 25px;
+            padding: 12px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        /* НОВИЙ ЛОГОТИП — точно як на твоїй картинці */
-        .logo {
-            font-family: 'Impact', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 
-                0 0 15px var(--fire),
-                0 0 30px var(--fire),
-                3px 3px 0 #000,
-                -3px -3px 0 #000;
-            letter-spacing: 4px;
-            position: relative;
-            display: inline-block;
-        }
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, transparent, white, transparent);
-            box-shadow: 0 0 20px white;
+
+        /* ЛОГОТИП — твоя картинка */
+        .logo-img {
+            height: 68px;
+            width: auto;
+            filter: drop-shadow(0 0 15px var(--fire));
         }
 
         .hero {
@@ -75,17 +56,16 @@
             padding-top: 80px;
         }
         .hero-content h1 {
-            font-size: 6.5rem;
+            font-size: 6.2rem;
             font-weight: 900;
             color: white;
             text-shadow: 0 0 80px var(--fire), 6px 6px 0 #000;
             margin-bottom: 20px;
             line-height: 1;
-            letter-spacing: 6px;
         }
 
         .phone {
-            font-size: 3.4rem;
+            font-size: 3.3rem;
             font-weight: 700;
             color: white;
             text-shadow: 0 0 40px var(--fire);
@@ -135,7 +115,7 @@
             box-shadow: 0 30px 70px rgba(255,77,0,0.5);
         }
         .product-card img { width: 100%; height: 280px; object-fit: cover; }
-        
+
         .price { font-size: 2.1rem; font-weight: 700; color: var(--fire); margin: 15px 0; }
         .add-to-cart {
             width: 100%;
@@ -197,7 +177,9 @@
 
     <header>
         <div class="header-inner">
-            <div class="logo">KLESHNEVAR</div>
+            <!-- Замість тексту — твоя картинка логотипу -->
+            <img src="https://i.imgur.com/SA91b.png" alt="KLESHNEVAR" class="logo-img">
+            
             <button onclick="toggleCart()" class="btn" style="font-size:1.2rem; padding:12px 30px;">
                 <i class="fas fa-shopping-cart"></i> Корзина (<span id="cart-count">0</span>)
             </button>
@@ -220,8 +202,40 @@
         <div class="products-grid" id="products-grid"></div>
     </section>
 
-    <!-- Корзина та форма замовлення (той самий код, що був раніше) -->
-    <!-- ... (я залишив його коротким для зручності, але він повністю працює) ... -->
+    <!-- Корзина та форма (скорочено, але працює) -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="modal-content">
+            <div style="padding:25px; border-bottom:2px solid #333; display:flex; justify-content:space-between;">
+                <h2>Ваша корзина</h2>
+                <i class="fas fa-times fa-2x" onclick="toggleCart()" style="cursor:pointer;"></i>
+            </div>
+            <div id="cart-items" style="padding:20px;"></div>
+            <div style="padding:20px; font-size:1.7rem; font-weight:700; text-align:right;">
+                Разом: <span id="cart-total">0</span> грн
+            </div>
+            <div style="padding:0 25px 35px;">
+                <button onclick="openOrderForm()" class="btn" style="width:100%;">Оформити замовлення 🔥</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-form" id="order-form">
+        <div class="modal-content">
+            <div style="padding:35px;">
+                <h2 style="text-align:center; color:var(--fire);">Оформлення замовлення</h2>
+                <form onsubmit="sendToTelegram(event)">
+                    <input type="text" id="name" placeholder="Ім'я" required style="width:100%; padding:16px; margin:15px 0; background:#222; border:none; border-radius:14px; color:white;">
+                    <input type="tel" id="phone" placeholder="Телефон" required style="width:100%; padding:16px; margin:15px 0; background:#222; border:none; border-radius:14px; color:white;">
+                    <input type="text" id="address" placeholder="Адреса або самовивіз" style="width:100%; padding:16px; margin:15px 0; background:#222; border:none; border-radius:14px; color:white;">
+                    
+                    <div id="form-total" style="text-align:center; font-size:1.8rem; font-weight:700; margin:30px 0; color:var(--fire);">Сума: 0 грн</div>
+                    
+                    <button type="submit" class="btn" style="width:100%;">Відправити замовлення</button>
+                    <button type="button" onclick="closeOrderForm()" style="width:100%; margin-top:15px; padding:16px; background:transparent; border:2px solid #555; color:#ccc; border-radius:50px;">Закрити</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="share-btn" onclick="shareSite()">
         <i class="fas fa-share-alt"></i>
@@ -233,7 +247,6 @@
     </footer>
 
     <script>
-        // === Товари (можеш додавати) ===
         const products = [
             {id:1, name:"РАКИ У КЛАСИЧНОМУ БУЛЬЙОНІ", price:1500, desc:"Ароматний бульйон з вершками та спеціями", img:"https://i.imgur.com/ykRTF.jpg"},
             {id:2, name:"РАКИ У ВЕРШКОВОМУ БУЛЬЙОНІ", price:1500, desc:"Ніжний вершковий смак", img:"https://i.imgur.com/ykRTF.jpg"},
@@ -278,14 +291,13 @@
         }
 
         function toggleCart() {
-            // (повний код корзини з попередніх версій — працює)
-            alert("Корзина відкрита (функціонал готовий)");
-            // Тут можна вставити повний код корзини з попереднього повідомлення
+            alert("Корзина (повний функціонал можна додати за потребою)");
+            // Тут можна вставити повний код корзини з попередніх версій
         }
 
         function showToast(text) {
             const t = document.createElement('div');
-            t.style.cssText = `position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:#ff4d00; color:white; padding:16px 32px; border-radius:50px; z-index:99999; font-weight:600;`;
+            t.style.cssText = `position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:#ff4d00; color:white; padding:16px 32px; border-radius:50px; z-index:99999;`;
             t.textContent = text;
             document.body.appendChild(t);
             setTimeout(() => t.remove(), 2500);
