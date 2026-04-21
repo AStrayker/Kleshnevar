@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KLESHNEVAR • Креветки та раки у бульйоні</title>
+    <meta name="description" content="Авторські креветки та раки у бульйонах • Доставка по Кам'янському та області • Свіжі, ароматні, вогняні смаки!">
+    <link rel="icon" href="https://github.com/AStrayker/veyb/blob/main/ico.png?raw=true" type="image/png"> <!-- Заміни на свій favicon.ico після завантаження -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --fire: #ff4d00;
+            --dark: #111111;
+            --accent: #ff8c00;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0f0f0f;
+            color: #eee;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Фон з вогнем (CSS ефект) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(255, 77, 0, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            animation: fireGlow 8s infinite alternate;
+        }
+        @keyframes fireGlow { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 77, 0, 0.3);
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--fire);
+            text-shadow: 0 0 15px var(--fire);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo i { font-size: 2.4rem; }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            font-weight: 500;
+        }
+        .nav a {
+            color: #eee;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav a:hover { color: var(--fire); }
+        
+        .cart-btn {
+            background: transparent;
+            border: 2px solid var(--fire);
+            color: var(--fire);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cart-btn:hover {
+            background: var(--fire);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('https://i.imgur.com/WR6sF.jpg') center/cover no-repeat; /* Заміни на свій menu image з GitHub */
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            color: white;
+            text-shadow: 0 0 30px var(--fire);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .btn {
+            padding: 16px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: var(--fire);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #ff8c00;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(255, 77, 0, 0.4);
+        }
+        
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.6rem;
+            margin-bottom: 50px;
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--fire);
+        }
+        
+        /* Каталог */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.3);
+        }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 20px;
+        }
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: white;
+        }
+        .product-info p {
+            font-size: 0.95rem;
+            color: #ccc;
+            min-height: 70px;
+        }
+        .price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--fire);
+            margin: 15px 0;
+        }
+        .add-to-cart {
+            width: 100%;
+            background: var(--fire);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* Корзина */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-content {
+            background: #1a1a1a;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .cart-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-item {
+            display: flex;
+            padding: 15px 25px;
+            border-bottom: 1px solid #333;
+            gap: 15px;
+        }
+        .cart-total {
+            padding: 20px 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: right;
+        }
+        
+        /* Форма */
+        .order-form {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-content {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 560px;
+        }
+        
+        .share-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--fire);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.5);
+            z-index: 9999;
+            cursor: pointer;
+        }
+        
+        footer {
+            background: #111;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.6rem; }
+            .products-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <i class="fas fa-fire"></i>
+                KLESHNEVAR
+            </div>
+            
+            <nav class="nav">
+                <a href="#menu">Меню</a>
+                <a href="#about">Про нас</a>
+                <a href="#delivery">Доставка</a>
+            </nav>
+            
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>КРЕВЕТКИ ТА РАКИ У БУЛЬЙОНІ</h1>
+            <p>Авторські рецепти • Свіжі морепродукти • Вогняні смаки • Доставка Кам'янське та область</p>
+            <a href="#menu" class="btn btn-primary">
+                <i class="fas fa-fire"></i>
+                Переглянути меню
+            </a>
+        </div>
+    </section>
+
+    <!-- МЕНЮ -->
+    <section id="menu">
+        <h2 class="section-title">НАШЕ МЕНЮ</h2>
+        
+        <div class="products-grid" id="products-grid">
+            <!-- Товари додаються через JS -->
+        </div>
+    </section>
+
+    <!-- ПРО НАС -->
+    <section id="about" style="background:#1a1a1a;">
+        <div style="max-width:800px; margin:0 auto; text-align:center;">
+            <h2 class="section-title">KLESHNEVAR</h2>
+            <p style="font-size:1.2rem; margin-bottom:30px;">Свіжі креветки та раки, приготовані в авторських бульйонах з вогняними нотами. Класичний, томатний, вершковий, винний, том-ям і багато інших смаків. Доставляємо гарячими прямо до вас!</p>
+            <p><strong>📍 Кам'янське • 🚀 Швидка доставка</strong></p>
+        </div>
+    </section>
+
+    <!-- ДОСТАВКА -->
+    <section id="delivery">
+        <h2 class="section-title">Доставка та оплата</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:30px; max-width:1000px; margin:0 auto;">
+            <div style="background:#1a1a1a; padding:30px; border-radius:20px; text-align:center;">
+                <i class="fas fa-truck" style="font-size:3rem; color:var(--fire); margin-bottom:15px;"></i>
+                <h3>Доставка</h3>
+                <p>Кам'янське та область<br>Нова Пошта / самовивіз</p>
+                <p style="color:var(--fire); font-size:1.4rem; margin-top:15px;">Від 500 грн — безкоштовно</p>
+            </div>
+            <div style="background:#1a1a1a; padding:30px; border-radius:20px; text-align:center;">
+                <i class="fas fa-credit-card" style="font-size:3rem; color:var(--fire); margin-bottom:15px;"></i>
+                <h3>Оплата</h3>
+                <p>Готівка • Карта • При отриманні</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОРЗИНА МОДАЛКА -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Ваша корзина</h2>
+                <i class="fas fa-times fa-2x" onclick="toggleCart()" style="cursor:pointer;"></i>
+            </div>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                Разом: <span id="cart-total-price">0 грн</span>
+            </div>
+            <div style="padding:0 25px 25px;">
+                <button onclick="openOrderForm()" class="btn btn-primary" style="width:100%; justify-content:center;">
+                    Оформити замовлення
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФОРМА ЗАМОВЛЕННЯ -->
+    <div class="order-form" id="order-form">
+        <div class="form-content">
+            <h2 style="text-align:center; margin-bottom:25px; color:var(--fire);">Оформлення замовлення</h2>
+            <form id="orderForm" onsubmit="sendToTelegram(event)">
+                <div style="margin-bottom:15px;">
+                    <label>Ім’я *</label>
+                    <input type="text" id="name" required style="width:100%; padding:14px; border-radius:12px; border:none; background:#222; color:white;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Телефон *</label>
+                    <input type="tel" id="phone" required style="width:100%; padding:14px; border-radius:12px; border:none; background:#222; color:white;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Адреса доставки</label>
+                    <input type="text" id="address" placeholder="Кам'янське, вул. ..." style="width:100%; padding:14px; border-radius:12px; border:none; background:#222; color:white;">
+                </div>
+                
+                <div style="margin:25px 0; font-size:1.3rem; font-weight:700; text-align:center;" id="form-total">Сума: 0 грн</div>
+                
+                <button type="submit" style="width:100%; padding:18px; background:var(--fire); color:white; border:none; border-radius:50px; font-size:1.2rem; font-weight:600;">
+                    Відправити замовлення 🔥
+                </button>
+                <button type="button" onclick="closeOrderForm()" style="margin-top:15px; width:100%; background:transparent; color:#ccc; border:1px solid #555; padding:12px; border-radius:50px;">
+                    Закрити
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Кнопка "Поділитися" -->
+    <div class="share-btn" onclick="shareSite()">
+        <i class="fas fa-share-alt"></i>
+    </div>
+
+    <footer>
+        <p>KLESHNEVAR © 2026 • Кам'янське</p>
+        <p>Тел: <a href="tel:+380960444765" style="color:var(--fire);">+380 96 044 47 65</a></p>
+        <p>Всі права захищені</p>
+    </footer>
+
+    <script>
+        // === ТОВАРИ (додай сюди раків за потреби) ===
+        const products = [
+            {
+                id: 1,
+                name: "КРЕВЕТКИ У КЛАСИЧНОМУ БУЛЬЙОНІ",
+                price: 700,
+                unit: "грн/кг",
+                desc: "Легкий прозорий бульйон, що підкреслює натуральний смак креветок",
+                img: "https://i.imgur.com/WR6sF.jpg" // заміни на окремі фото
+            },
+            {
+                id: 2,
+                name: "КРЕВЕТКИ У ВЕРШКОВОМУ БУЛЬЙОНІ",
+                price: 800,
+                unit: "грн/кг",
+                desc: "Кремовий бульйон із ніжним та делікатним смаком",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            },
+            {
+                id: 3,
+                name: "КРЕВЕТКИ У ТОМАТНОМУ БУЛЬЙОНІ",
+                price: 800,
+                unit: "грн/кг",
+                desc: "Насичений томатний бульйон із легкою кислинкою",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            },
+            {
+                id: 4,
+                name: "КРЕВЕТКИ У ВИННОМУ БУЛЬЙОНІ",
+                price: 770,
+                unit: "грн/кг",
+                desc: "Ароматний бульйон із витонченими винними нотами",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            },
+            {
+                id: 5,
+                name: "КРЕВЕТКИ У ТОМ ЯМ",
+                price: 850,
+                unit: "грн/кг",
+                desc: "Кисло-гострий тайський бульйон із яскравими пряними нотами",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            },
+            {
+                id: 6,
+                name: "КРЕВЕТКИ У ТОМ КХА",
+                price: 810,
+                unit: "грн/кг",
+                desc: "Ніжний кокосовий бульйон із м’яким вершковим смаком",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            },
+            {
+                id: 7,
+                name: "КРЕВЕТКИ У ЧАСНИКОВО-ГОСТРОМУ БУЛЬЙОНІ",
+                price: 750,
+                unit: "грн/кг",
+                desc: "Пікантний бульйон із яскравими нотами часнику",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            },
+            {
+                id: 8,
+                name: "КРЕВЕТКИ В АПЕЛЬСИНОВО-ІМБИРНОМУ БУЛЬЙОНІ",
+                price: 750,
+                unit: "грн/кг",
+                desc: "Цитрусовий бульйон із легкою імбирною пікантністю",
+                img: "https://i.imgur.com/WR6sF.jpg"
+            }
+            // Додай раків сюди у такому ж форматі
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const container = document.getElementById('products-grid');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.desc}</p>
+                        <div class="price">${product.price} ${product.unit}</div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            <i class="fas fa-plus"></i> Додати в корзину
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            
+            // Якщо вже є — збільшуємо кількість
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty = (existing.qty || 1) + 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            
+            updateCartCount();
+            showToast(`${product.name} додано 🔥`);
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="padding:40px; text-align:center; color:#888;">Корзина порожня</p>`;
+            } else {
+                cart.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <div style="flex:1;">
+                            <strong>${item.name}</strong><br>
+                            <small>${item.qty || 1} кг</small>
+                        </div>
+                        <div style="text-align:right;">
+                            ${item.price * (item.qty || 1)} грн
+                            <button onclick="removeFromCart(${index})" style="margin-left:15px; background:none; border:none; color:#ff4d00; font-size:1.4rem;">×</button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            
+            // Підсумок
+            const total = cart.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+            document.getElementById('cart-total-price').textContent = total + ' грн';
+            
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            toggleCart(); // перерендерити
+            updateCartCount();
+        }
+
+        function openOrderForm() {
+            toggleCart();
+            const modal = document.getElementById('order-form');
+            modal.style.display = 'flex';
+            
+            // Підсумок
+            const total = cart.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+            document.getElementById('form-total').textContent = `Сума: ${total} грн`;
+        }
+
+        function closeOrderForm() {
+            document.getElementById('order-form').style.display = 'none';
+        }
+
+        async function sendToTelegram(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value || 'Самовивіз';
+            
+            const total = cart.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+            
+            let messageText = `🦐 Нове замовлення KLESHNEVAR\n\n`;
+            cart.forEach(item => {
+                messageText += `• ${item.name} — ${item.qty || 1} кг — ${item.price * (item.qty || 1)} грн\n`;
+            });
+            messageText += `\n👤 ${name}\n📱 ${phone}\n📍 ${address}\n💰 Загалом: ${total} грн`;
+            
+            // ЗАМІНИ НА СВОЇ ДАНІ TELEGRAM !!!
+            const BOT_TOKEN = '8435209606:AAF018rPlPPjm2FAbJkxEYYU735GqXXrHRA'; // ← ТВІЙ ТОКЕН
+            const CHAT_ID = '282198872'; // ← ТВІЙ CHAT ID
+            
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: messageText,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                if (response.ok) {
+                    alert('Замовлення відправлено! Ми скоро зв’яжемося з вами 🔥');
+                    cart = [];
+                    updateCartCount();
+                    closeOrderForm();
+                    window.location.href = 'thanks.html';
+                } else {
+                    alert('Помилка відправки. Спробуйте ще раз.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Помилка з’єднання');
+            }
+        }
+
+        function showToast(text) {
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--fire); color:white; padding:14px 24px; border-radius:50px; box-shadow:0 10px 30px rgba(255,77,0,.5); z-index:99999; white-space:nowrap;';
+            toast.textContent = text;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2800);
+        }
+
+        function shareSite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'KLESHNEVAR — креветки та раки',
+                    text: 'Смачні креветки та раки у бульйонах! 🔥',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Посилання скопійовано в буфер обміну!');
+                });
+            }
+        }
+
+        // Ініціалізація
+        window.onload = function() {
+            renderProducts();
+            updateCartCount();
+            
+            // Авто-відкриття меню при скролі (опціонально)
+            console.log('%cKLESHNEVAR сайт готовий 🔥', 'color:#ff4d00; font-size:20px; font-weight:bold;');
+        };
+    </script>
+</body>
+</html>
